@@ -1,0 +1,23 @@
+server:
+  port: 8040
+spring:
+  datasource:
+    password: root
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+
+jwt:
+  access:
+    expiration: 86400000000
+
+
