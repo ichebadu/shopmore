@@ -1,6 +1,6 @@
 package com.sm.shopmore.auth;
 
-import com.sm.shopmore.dto.request.BuyersRegisterRequest;
+import com.sm.shopmore.dto.request.BuyerRegisterRequest;
 import com.sm.shopmore.dto.request.MerchantRegisterRequest;
 import com.sm.shopmore.entity.User;
 import com.sm.shopmore.enums.UserType;
@@ -23,13 +23,13 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse BuyerRegistration(BuyersRegisterRequest request) {
+    public AuthenticationResponse buyerRegistration(BuyerRegisterRequest request) {
         var user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .userType(UserType.PRODUCT_BUYER)
+                .userType(UserType.SELLER)
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -49,13 +49,15 @@ public class AuthenticationService {
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("user not authenticated"));
         var jwtToken = jwtService.generateToken(user);
+        System.out.println(user);
         return
                 AuthenticationResponse.builder()
                         .token(jwtToken)
                         .build();
     }
 
-    public AuthenticationResponse MerchantRegistration(MerchantRegisterRequest request) {
+    public AuthenticationResponse merchantRegistration(MerchantRegisterRequest request) {
+        System.out.println(request);
         var user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
@@ -80,7 +82,7 @@ public class AuthenticationService {
         );
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("user not authenticated"));
-
+        System.out.println(user);
         var jwtToken = jwtService.generateToken(user);
         return
                 AuthenticationResponse.builder()

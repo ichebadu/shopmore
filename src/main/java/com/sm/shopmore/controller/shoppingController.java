@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/signUp")
-public class noAuth {
+@RequestMapping("/api/v1/demo-controller")
+public class shoppingController {
     @GetMapping
-    public ResponseEntity<String> reg(){
-        return ResponseEntity.ok("am good");
+    public ResponseEntity<String> shop(){
+        return ResponseEntity.ok("welcome to shop");
     }
 }
