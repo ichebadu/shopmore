@@ -18,8 +18,8 @@ public class authMerchantController {
     public ResponseEntity<AuthenticationResponse> merchantRegistration(@RequestBody MerchantRegisterRequest request){
         return ResponseEntity.ok(authenticationService.merchantRegistration(request));
     }
-    @PostMapping("/registration/merchant/authenticate")
-    public ResponseEntity<AuthenticationResponse> merchantAuthenticate(@RequestBody AuthenticationRequest request){
+    @PostMapping("/registration/merchant/login")
+    public ResponseEntity<AuthenticationResponse> merchantLogin(@RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(authenticationService.merchantAuthentication(request));
     }
 }

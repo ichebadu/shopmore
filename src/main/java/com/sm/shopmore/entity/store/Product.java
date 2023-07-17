@@ -1,4 +1,4 @@
-package com.sm.shopmore.entity;
+package com.sm.shopmore.entity.store;
 
 import com.sm.shopmore.enums.Category;
 import jakarta.persistence.Entity;

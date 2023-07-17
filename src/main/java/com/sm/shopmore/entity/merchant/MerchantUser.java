@@ -1,5 +1,6 @@
 package com.sm.shopmore.entity.merchant;
 
+import com.sm.shopmore.entity.User;
 import com.sm.shopmore.enums.BusinessType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="merchant_user")
-public class MerchantUser {
+public class MerchantUser extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;

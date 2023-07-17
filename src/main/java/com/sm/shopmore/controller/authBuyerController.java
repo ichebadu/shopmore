@@ -22,8 +22,8 @@ public class authBuyerController {
         return ResponseEntity.ok(authenticationService.buyerRegistration(request));
     }
 
-    @PostMapping("/register/seller/authenticate")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationRequest request){
+    @PostMapping("/register/seller/login")
+    public ResponseEntity<AuthenticationResponse> buyerLogin(@RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(authenticationService.buyerAuthentication(request));
     }
 }

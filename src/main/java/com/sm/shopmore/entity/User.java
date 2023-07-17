@@ -34,10 +34,7 @@ public class User implements UserDetails {
     private Boolean enabled;
     @Enumerated(EnumType.STRING)
     private UserType userType;
-    private String dateOfBirth;
-    private String phone;
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
