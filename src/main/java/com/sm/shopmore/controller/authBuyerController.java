@@ -3,7 +3,7 @@ package com.sm.shopmore.controller;
 import com.sm.shopmore.auth.AuthenticationRequest;
 import com.sm.shopmore.auth.AuthenticationResponse;
 import com.sm.shopmore.auth.AuthenticationService;
-import com.sm.shopmore.dto.request.BuyersRegisterRequest;
+import com.sm.shopmore.dto.request.BuyerRegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +18,8 @@ public class authBuyerController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register/seller" )
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody BuyersRegisterRequest request){
-        return ResponseEntity.ok(authenticationService.BuyerRegistration(request));
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody BuyerRegisterRequest request){
+        return ResponseEntity.ok(authenticationService.buyerRegistration(request));
     }
 
     @PostMapping("/register/seller/authenticate")
