@@ -22,7 +22,7 @@ public class authBuyerController {
         return ResponseEntity.ok(authenticationService.BuyerRegistration(request));
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/register/seller/authenticate")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(authenticationService.buyerAuthentication(request));
     }

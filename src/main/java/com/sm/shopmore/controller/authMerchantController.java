@@ -1,5 +1,6 @@
 package com.sm.shopmore.controller;
 
+import com.sm.shopmore.auth.AuthenticationRequest;
 import com.sm.shopmore.auth.AuthenticationResponse;
 import com.sm.shopmore.auth.AuthenticationService;
 import com.sm.shopmore.dto.request.MerchantRegisterRequest;
@@ -18,5 +19,9 @@ public class authMerchantController {
     @PostMapping("/register/merchant")
     public ResponseEntity<AuthenticationResponse> merchantRegistration(MerchantRegisterRequest request){
         return ResponseEntity.ok(authenticationService.MerchantRegistration(request));
+    }
+    @PostMapping("/registration/merchant/authenticate")
+    public ResponseEntity<AuthenticationResponse> merchantAuthenticate(AuthenticationRequest request){
+        return ResponseEntity.ok(authenticationService.merchantAuthentication(request));
     }
 }
