@@ -27,7 +27,6 @@ public class Category {
     @Enumerated(EnumType.STRING)
     private CategoryType categoryType;
 
-
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "category", orphanRemoval = true)
     private Set<Product> product;
 }
