@@ -1,7 +1,7 @@
 package com.sm.shopmore.enums;
 
 
-public enum Category {
+public enum CategoryType {
     FASHION,
     ELECTRONICS,
     INSTRUMENT,

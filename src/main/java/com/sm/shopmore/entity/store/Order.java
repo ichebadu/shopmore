@@ -13,23 +13,19 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="order")
+@Table(name="orders")
 public class Order {
-    @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Column
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int orderId;
-    @Column
-    private int uid;
     @Column(nullable =false)
     private int quantity;
     @CreationTimestamp
@@ -38,14 +34,15 @@ public class Order {
     private LocalDateTime orderUpdatedOn;
     @Enumerated(EnumType.STRING)
     private ModeOfPayment modeOfPayment;
-
     @Column(nullable = false)
     private Double grandTotal;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    private Set<OrderList> orderList = new HashSet<>();
+    @Enumerated
     @OneToOne(cascade = CascadeType.ALL)
     private MailingAddress mailingAddress;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="user_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name ="buyer_id", nullable = false)
     private BuyerProfile buyerProfile;
 
     @OneToOne(cascade =  CascadeType.ALL)

@@ -1,18 +1,16 @@
 package com.sm.shopmore.entity.buyer;
 
 import com.sm.shopmore.entity.User;
-import com.sm.shopmore.entity.Wallet;
+import com.sm.shopmore.entity.payment.Wallet;
 import com.sm.shopmore.enums.Gender;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
 @Entity
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

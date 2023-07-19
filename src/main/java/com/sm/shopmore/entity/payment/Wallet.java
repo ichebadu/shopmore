@@ -1,4 +1,4 @@
-package com.sm.shopmore.entity.store;
+package com.sm.shopmore.entity.payment;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,20 +6,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "transaction")
-public class Transaction {
+@Entity
+@Table(name ="wallet")
+public class Wallet {
     @Id
     @GeneratedValue
-    private Long Id;
-
-    private String amount;
-    private String cost;
-
-
+    private Long id;
 }

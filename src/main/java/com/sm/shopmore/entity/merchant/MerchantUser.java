@@ -9,15 +9,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="merchant_user")
 public class MerchantUser extends User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
     private String shopName;
     @Enumerated(EnumType.STRING)
     private BusinessType businessType;

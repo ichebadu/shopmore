@@ -1,8 +1,7 @@
 package com.sm.shopmore.entity.store;
 
-import com.sm.shopmore.enums.Category;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,15 +15,22 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="products")
 public class Product {
     @Id
     private Long id;
-    private String name;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category_id")
     private Category category;
+    @Column(name="price", nullable = false)
     private String price;
+    @Column(name="quantity", nullable = false)
     private String quantity;
-    private String imageName;
+    @Column(name="productName", nullable = false)
+    private String productName;
     private LocalDateTime createdOn;
     private LocalDateTime updated;
+    @Column(name="description", nullable = false)
     private String Description;
 }
