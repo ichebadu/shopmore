@@ -17,11 +17,11 @@ import java.util.Set;
 @Table(name="wishList")
 public class wishList {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY, targetEntity = User.class)
-    @JoinColumn(nullable = false,name = "buyer_id")
+    @JoinColumn(nullable = false,name = "customer_id")
     private User user;
 
     @OneToMany(fetch = FetchType.LAZY)

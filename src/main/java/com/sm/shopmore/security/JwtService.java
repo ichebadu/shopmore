@@ -8,6 +8,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.xml.bind.DatatypeConverter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -15,19 +16,26 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
+
     @Value("${jwt.access.expiration}")
     private long expiration;
+    @Value("60480000")
+    private long refreshExpiration;
+
 
     private String generateSecret(){
         return DatatypeConverter.printBase64Binary(new byte[512/8]);
     }
 
     public String extractUsername(String token) {
-        return extractSingleClaim(token, Claims::getSubject);
+        Claims claims = extractAllClaims(token);
+        return claims.getSubject();
     }
 
     private Date extractExpiration(String token) {
@@ -43,7 +51,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
@@ -57,13 +65,34 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
+
     public String generateToken(UserDetails userDetails){
         return generateToken(new HashMap<>(), userDetails);
     }
 
     public String generateToken(
-            Map<String, Object> extractClaims,
+            Map<String, Object> extraClaims,
             UserDetails userDetails
+    ) {
+        Set<String> roles = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toSet());
+
+        extraClaims.put("roles", roles);
+
+        return buildToken(extraClaims, userDetails, expiration);
+    }
+
+    public String generateRefreshToken(
+            UserDetails userDetails
+    ){
+        return buildToken(new HashMap<>(),userDetails, refreshExpiration);
+    }
+
+    public String buildToken(
+            Map<String, Object> extractClaims,
+            UserDetails userDetails,
+            long expiration
     ){
         return Jwts
                 .builder()

@@ -26,7 +26,4 @@ public class BankAccount {
     private String businessOwnerOrLegalRepresentativeFirstName;
     private String businessOwnerOrLegalRepresentativeLastName;
     private String businessOwnerOrLegalRepresentativeDateOfBirth;
-
-
-
 }

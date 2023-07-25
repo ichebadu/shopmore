@@ -1,5 +1,13 @@
 server:
   port: 8040
+
+
+jwt:
+  access:
+    expiration: 86400
+  refresh:
+    expiration: 6048000
+
 spring:
   datasource:
     password: root
@@ -15,9 +23,15 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
-jwt:
-  access:
-    expiration: 86400000000
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jazzmaniche@gmail.com
+    password: mszwhgpdrpjhoykj
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 

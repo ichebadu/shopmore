@@ -1,4 +1,4 @@
-package com.sm.shopmore.entity.buyer;
+package com.sm.shopmore.entity.customer;
 
 
 import com.sm.shopmore.enums.City;

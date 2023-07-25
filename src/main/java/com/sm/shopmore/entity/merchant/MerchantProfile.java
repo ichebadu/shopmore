@@ -20,6 +20,4 @@ public class MerchantProfile {
     private Long id;
     private String imageUrl;
     private String CAC;
-
-
 }

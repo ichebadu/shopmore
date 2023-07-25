@@ -1,4 +1,4 @@
-package com.sm.shopmore.auth;
+package com.sm.shopmore.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
-    private String email;
-    private String password;
+public class RegistrationResponse {
+    private String firstName;
+    private String lastName;
+    private String message;
 }

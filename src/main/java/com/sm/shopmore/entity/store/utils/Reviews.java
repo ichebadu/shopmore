@@ -1,6 +1,6 @@
 package com.sm.shopmore.entity.store.utils;
 
-import com.sm.shopmore.entity.buyer.BuyerProfile;
+import com.sm.shopmore.entity.customer.CustomerUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +19,7 @@ public class Reviews {
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="buyer_id", nullable = false)
-    private BuyerProfile buyerProfile;
+    private CustomerUser customerUser;
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)

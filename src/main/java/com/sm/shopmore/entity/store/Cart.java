@@ -1,7 +1,7 @@
 package com.sm.shopmore.entity.store;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sm.shopmore.entity.buyer.BuyerProfile;
+import com.sm.shopmore.entity.customer.CustomerUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +23,7 @@ public class Cart {
     private Long id;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="buyer_id")
-    private BuyerProfile buyer;
+    private CustomerUser buyer;
     @JsonIgnore
     @OneToMany(mappedBy = "cart",orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<CartList> cartList = new HashSet<>();

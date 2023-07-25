@@ -1,4 +1,6 @@
-package com.sm.shopmore.dto.request;
+package com.sm.shopmore.dto.request.CustomerRequest;
+
+import com.sm.shopmore.enums.Gender;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +11,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MerchantRegisterRequest {
+public class CustomerRegistrationRequest {
+
     private String firstName;
+
     private String lastName;
+
     private String email;
+
     private String password;
+
+    private String dateOfBirth;
+
+    private String phone;
+    private String gender;
 }
