@@ -19,15 +19,21 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
+    public Claims extractAllClaims;
     @Value("${jwt.access.expiration}")
     private long expiration;
+    @Value("604800000")
+    private long refreshExpiration;
+
+
 
     private String generateSecret(){
         return DatatypeConverter.printBase64Binary(new byte[512/8]);
     }
 
     public String extractUsername(String token) {
-        return extractSingleClaim(token, Claims::getSubject);
+        Claims claims = extractAllClaims(token);
+        return claims.getSubject();
     }
 
     private Date extractExpiration(String token) {
@@ -43,7 +49,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
@@ -57,13 +63,27 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
+
     public String generateToken(UserDetails userDetails){
         return generateToken(new HashMap<>(), userDetails);
     }
-
     public String generateToken(
-            Map<String, Object> extractClaims,
+            Map<String, Object> extraClaims,
             UserDetails userDetails
+    ){
+        return buildToken(extraClaims,userDetails,expiration);
+    }
+
+    public String generateRefreshToken(
+            UserDetails userDetails
+    ){
+        return buildToken(new HashMap<>(),userDetails, refreshExpiration);
+    }
+
+    public String buildToken(
+            Map<String, Object> extractClaims,
+            UserDetails userDetails,
+            long expiration
     ){
         return Jwts
                 .builder()

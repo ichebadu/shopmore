@@ -1,9 +1,11 @@
-package com.sm.shopmore.dto.request;
+package com.sm.shopmore.dto.request.merchantRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Data
 @Builder
@@ -14,4 +16,7 @@ public class MerchantRegisterRequest {
     private String lastName;
     private String email;
     private String password;
+    private Date dateOfBirth;
+    private String phone;
+
 }

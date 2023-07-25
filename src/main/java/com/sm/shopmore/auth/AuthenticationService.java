@@ -1,9 +1,11 @@
 package com.sm.shopmore.auth;
 
 import com.sm.shopmore.dto.request.BuyerRegisterRequest;
-import com.sm.shopmore.dto.request.MerchantRegisterRequest;
+import com.sm.shopmore.dto.request.merchantRequest.MerchantRegisterRequest;
 import com.sm.shopmore.entity.User;
 import com.sm.shopmore.enums.UserType;
+import com.sm.shopmore.repository.AdminRepository;
+import com.sm.shopmore.repository.BuyerRepository;
 import com.sm.shopmore.repository.UserRepository;
 import com.sm.shopmore.security.JwtService;
 
@@ -20,8 +22,11 @@ public class AuthenticationService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final AdminRepository adminRepository;
+    private final BuyerRepository buyerRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+
 
     public AuthenticationResponse buyerRegistration(BuyerRegisterRequest request) {
         var user = User.builder()
@@ -29,7 +34,7 @@ public class AuthenticationService {
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .userType(UserType.SELLER)
+                .userType(UserType.BUYER)
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -40,6 +45,7 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse buyerAuthentication(AuthenticationRequest request) {
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -80,6 +86,8 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
+
+        String jwt = jwtService.generateToken(user)
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("user not authenticated"));
         System.out.println(user);

@@ -3,7 +3,7 @@ package com.sm.shopmore.controller;
 import com.sm.shopmore.auth.AuthenticationRequest;
 import com.sm.shopmore.auth.AuthenticationResponse;
 import com.sm.shopmore.auth.AuthenticationService;
-import com.sm.shopmore.dto.request.MerchantRegisterRequest;
+import com.sm.shopmore.dto.request.merchantRequest.MerchantRegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

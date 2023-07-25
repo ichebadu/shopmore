@@ -18,4 +18,6 @@ public class MerchantBusinessInformation {
     @GeneratedValue
     private String id;
 
+
+
 }

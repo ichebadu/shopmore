@@ -1,6 +1,6 @@
 package com.sm.shopmore.entity.store;
 
-import com.sm.shopmore.entity.buyer.BuyerProfile;
+import com.sm.shopmore.entity.buyer.BuyerUser;
 import com.sm.shopmore.entity.buyer.MailingAddress;
 import com.sm.shopmore.enums.DeliveryStatus;
 import com.sm.shopmore.enums.ModeOfPayment;
@@ -43,7 +43,7 @@ public class Order {
     private MailingAddress mailingAddress;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="buyer_id", nullable = false)
-    private BuyerProfile buyerProfile;
+    private BuyerUser buyerUser;
 
     @OneToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name= "transaction_id")
