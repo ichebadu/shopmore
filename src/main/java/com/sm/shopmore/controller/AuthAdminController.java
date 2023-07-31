@@ -30,7 +30,7 @@ public class AuthAdminController {
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<RegistrationResponse>> AdminRegistration(@RequestBody AdminRegistrationRequest request){
         ApiResponse<RegistrationResponse> apiResponse = new ApiResponse<>(adminService.registration(request));
-        return new ResponseEntity (apiResponse, HttpStatus.OK);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
     @PostMapping("/verify_user")
     public ResponseEntity<ApiResponse<ResponseOtp>> otpVerification(@RequestBody OTPVerificationRequest request){
@@ -42,6 +42,6 @@ public class AuthAdminController {
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponse>> AdminAuthenticate(@RequestBody LoginRequest request){
         ApiResponse<LoginResponse> apiResponse = new ApiResponse<>(loginAuthenticationService.loginAuthentication(request));
-        return new ResponseEntity (apiResponse, HttpStatus.OK);
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 }

@@ -25,7 +25,7 @@ public class MerchantServiceImpl implements MerchantService {
 
 
     @Override
-    public RegistrationResponse registrationResponse(MerchantRegisterRequest request) {
+    public RegistrationResponse registration(MerchantRegisterRequest request) {
         MerchantUser merchantUser = mapperUtils.merchantRegistrationDtoToMerchantEntity(request);
         merchantUser.setPassword(passwordEncoder.encode(request.getPassword()));
         merchantRepository.save(merchantUser);

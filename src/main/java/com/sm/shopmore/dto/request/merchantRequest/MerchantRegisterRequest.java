@@ -1,8 +1,6 @@
 package com.sm.shopmore.dto.request.merchantRequest;
 
-import com.sm.shopmore.entity.merchant.BankAccount;
 import com.sm.shopmore.enums.BusinessType;
-import com.sm.shopmore.enums.City;
 import com.sm.shopmore.enums.DoYouHaveAShop;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
