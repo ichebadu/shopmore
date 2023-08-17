@@ -12,7 +12,7 @@ import com.sm.shopmore.service.CustomerService;
 import com.sm.shopmore.service.LoginAuthenticationService;
 
 
-import com.sm.shopmore.service.OtpService;
+import com.sm.shopmore.service.ConfirmationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthCustomerController {
     private final LoginAuthenticationService loginAuthenticationService;
     private final CustomerService customerService;
-    private final OtpService<CustomerUser> otpService;
+    private final ConfirmationService<CustomerUser> confirmationService;
 
     @PostMapping("/register" )
     public ResponseEntity<ApiResponse<RegistrationResponse>> register(@RequestBody CustomerRegistrationRequest request){
@@ -39,9 +39,8 @@ public class AuthCustomerController {
     }
     @PostMapping("/verify_user")
     public ResponseEntity<ApiResponse<ResponseOtp>> otpVerification(@RequestBody OTPVerificationRequest request){
-        ApiResponse<ResponseOtp> apiResponse = new ApiResponse<>(otpService.verifyUserOtp(request.getEmail(), request.getOtp()));
+        ApiResponse<ResponseOtp> apiResponse = new ApiResponse<>(confirmationService.verifyUserOtp(request.getEmail(), request.getOtp()));
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
-
     }
 
     @PostMapping("/login")

@@ -5,7 +5,6 @@ import com.sm.shopmore.dto.request.LoginRequest;
 import com.sm.shopmore.dto.response.LoginResponse;
 import com.sm.shopmore.entity.User;
 import com.sm.shopmore.exception.InvalidCredentialsException;
-import com.sm.shopmore.exception.UserDisabledException;
 import com.sm.shopmore.exception.UserNotFoundException;
 import com.sm.shopmore.repository.AdminRepository;
 import com.sm.shopmore.repository.CustomerRepository;

@@ -1,7 +1,6 @@
-package com.sm.shopmore.entity.admin;
+package com.sm.shopmore.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sm.shopmore.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,8 +15,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 @Builder
-@Table(name="otp")
-public class Otp {
+@Table(name="confirmationToken")
+public class ConfirmationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -31,7 +30,7 @@ public class Otp {
     @JsonIgnoreProperties("otp")
     private User user;
 
-    public Otp(String otp, User user){
+    public ConfirmationToken(String otp, User user){
         this.otp = otp;
         this.user = user;
         this.otpExpiresAt = otpExpiresDate();

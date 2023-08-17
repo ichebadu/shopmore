@@ -10,21 +10,18 @@ import com.sm.shopmore.dto.response.auth.ApiResponse;
 import com.sm.shopmore.entity.admin.AdminUser;
 import com.sm.shopmore.service.AdminService;
 import com.sm.shopmore.service.LoginAuthenticationService;
-import com.sm.shopmore.service.OtpService;
+import com.sm.shopmore.service.ConfirmationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth/admin")
 public class AuthAdminController {
     private final AdminService adminService;
-    private final OtpService<AdminUser> otpService;
+    private final ConfirmationService<AdminUser> confirmationService;
     private final LoginAuthenticationService loginAuthenticationService;
 
     @PostMapping("/register")
@@ -35,13 +32,17 @@ public class AuthAdminController {
     @PostMapping("/verify_user")
     public ResponseEntity<ApiResponse<ResponseOtp>> otpVerification(@RequestBody OTPVerificationRequest request){
         System.out.println(request);
-        ApiResponse<ResponseOtp> apiResponse = new ApiResponse<>(otpService.verifyUserOtp(request.getEmail(), request.getOtp()));
+        ApiResponse<ResponseOtp> apiResponse = new ApiResponse<>(confirmationService.verifyUserOtp(request.getEmail(), request.getOtp()));
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
-
     }
+
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponse>> AdminAuthenticate(@RequestBody LoginRequest request){
         ApiResponse<LoginResponse> apiResponse = new ApiResponse<>(loginAuthenticationService.loginAuthentication(request));
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
+
+
+
+
 }

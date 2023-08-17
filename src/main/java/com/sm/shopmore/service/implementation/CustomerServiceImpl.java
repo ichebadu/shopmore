@@ -2,21 +2,18 @@ package com.sm.shopmore.service.implementation;
 
 import com.sm.shopmore.dto.request.CustomerRequest.CustomerRegistrationRequest;
 import com.sm.shopmore.dto.response.RegistrationResponse;
-import com.sm.shopmore.entity.RoleEntity;
-import com.sm.shopmore.entity.admin.Otp;
+import com.sm.shopmore.entity.ConfirmationToken;
 import com.sm.shopmore.entity.customer.CustomerUser;
 import com.sm.shopmore.events.registrationNotification.UserRegistrationEvent;
 import com.sm.shopmore.repository.CustomerRepository;
 import com.sm.shopmore.service.CustomerService;
-import com.sm.shopmore.service.OtpService;
+import com.sm.shopmore.service.ConfirmationService;
 import com.sm.shopmore.utils.MapperUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +23,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final PasswordEncoder passwordEncoder;
     private final MapperUtils mapperUtils;
     private final ApplicationEventPublisher publisher;
-    private final OtpService<CustomerUser> otpService;
+    private final ConfirmationService<CustomerUser> confirmationService;
     @Override
     public RegistrationResponse registrationResponse(CustomerRegistrationRequest request) {
         CustomerUser customerUser = mapperUtils.CustomerRegistrationDtoToCustomerEntity(request);
@@ -35,10 +32,10 @@ public class CustomerServiceImpl implements CustomerService {
 
         log.info("CUSTOMER SAVED IN DATA BASE" + customerRepository.findByEmail(request.getEmail()));
 
-        Otp otpEntity = otpService.generateOtp(customerUser);
-        otpEntity.setUser(customerUser);
-        otpService.saveOtp(otpEntity);
-        String otp = otpEntity.getOtp();
+        ConfirmationToken confirmationTokenEntity = confirmationService.generateOtp(customerUser);
+        confirmationTokenEntity.setUser(customerUser);
+        confirmationService.saveOtp(confirmationTokenEntity);
+        String otp = confirmationTokenEntity.getOtp();
         publisher.publishEvent(new UserRegistrationEvent(customerUser,otp));
 
         return RegistrationResponse.builder()

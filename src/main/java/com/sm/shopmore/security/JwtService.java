@@ -25,8 +25,9 @@ public class JwtService {
 
     @Value("${jwt.access.expiration}")
     private long expiration;
-    @Value("60480000")
+    @Value("2592900000")
     private long refreshExpiration;
+
 
 
     private String generateSecret(){

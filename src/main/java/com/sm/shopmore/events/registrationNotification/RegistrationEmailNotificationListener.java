@@ -1,12 +1,12 @@
 package com.sm.shopmore.events.registrationNotification;
 
+import com.sm.shopmore.config.MailConfig;
 import com.sm.shopmore.entity.User;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class RegistrationEmailNotificationListener implements ApplicationListener<UserRegistrationEvent> {
 
-    private final JavaMailSender javaMailSender;
+    private final MailConfig mailConfig;
 
     @Override
     public void onApplicationEvent(UserRegistrationEvent event) {
@@ -23,7 +23,7 @@ public class RegistrationEmailNotificationListener implements ApplicationListene
         User user = event.getUser();
         String email = user.getEmail();
         try {
-            otpGenerator(email,otp);
+            otpGenerator(email, otp);
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
@@ -31,7 +31,7 @@ public class RegistrationEmailNotificationListener implements ApplicationListene
 
 
     private void otpGenerator(String user, String otp) throws MessagingException {
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessage mimeMessage = mailConfig.javaMailSender().createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
         messageHelper.setFrom("chukwu.iche@gmail.com");
@@ -47,7 +47,7 @@ public class RegistrationEmailNotificationListener implements ApplicationListene
                 + "<p style='font-size: 16px;'> ShopMore </p>"
                 + "</div>";
         messageHelper.setText(mailContent, true);
-        javaMailSender.send(mimeMessage);
+        mailConfig.javaMailSender().send(mimeMessage);
         log.info(otp);
         log.info("Sent OTP ", user);
     }

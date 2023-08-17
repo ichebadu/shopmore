@@ -10,7 +10,7 @@ import com.sm.shopmore.dto.response.auth.ApiResponse;
 import com.sm.shopmore.entity.merchant.MerchantUser;
 import com.sm.shopmore.service.LoginAuthenticationService;
 import com.sm.shopmore.service.MerchantService;
-import com.sm.shopmore.service.OtpService;
+import com.sm.shopmore.service.ConfirmationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthMerchantController {
 
         private final MerchantService merchantService;
-        private final OtpService<MerchantUser> otpService;
+        private final ConfirmationService<MerchantUser> confirmationService;
         private final LoginAuthenticationService loginAuthenticationService;
 
         @PostMapping("/register")
@@ -34,7 +34,7 @@ public class AuthMerchantController {
         }
         @PostMapping("/verify_user")
         public ResponseEntity<ApiResponse<ResponseOtp>> otpVerification(@RequestBody OTPVerificationRequest request){
-            ApiResponse<ResponseOtp> apiResponse = new ApiResponse<>(otpService.verifyUserOtp(request.getEmail(), request.getOtp()));
+            ApiResponse<ResponseOtp> apiResponse = new ApiResponse<>(confirmationService.verifyUserOtp(request.getEmail(), request.getOtp()));
             return new ResponseEntity<>(apiResponse,HttpStatus.OK);
 
         }
